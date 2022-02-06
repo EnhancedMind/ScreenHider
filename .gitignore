@@ -1,0 +1,5 @@
+.vscode/
+dist/
+.gitattributes
+old.txt
+screen_hider.exe
