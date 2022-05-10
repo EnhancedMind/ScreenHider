@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const string version = "0.1.0";
+const string version = "0.1.1";
 
 int main() {
     POINT xypos;
@@ -41,6 +41,9 @@ int main() {
 
     cout << "Detection started!" << endl;
 
+    char cmd[] = "powershell (Add-Type '[DllImport(\\\"user32.dll\\\")]^public static extern int PostMessage(int hWnd, int hMsg, int wParam, int lParam);' -Name a -Pas)::PostMessage(-1,0x0112,0xF170,2)";
+    strcat( cmd, " > nul" );
+
     int cycle = 0;
 	while (true) {
         GetCursorPos(&xypos);
@@ -48,7 +51,7 @@ int main() {
         if (xypos.x <= cpx && xypos.y <= cpx || xypos.x >= (sx - cpx) && xypos.y <= cpx || xypos.x <= cpx && xypos.y >= (sy - cpx) || xypos.x >= (sx - cpx) && xypos.y >= (sy - cpx)) {
             if (xypos.x >= -cpx && xypos.y >= -cpx && xypos.x <= (sx + cpx) && xypos.y <= (sy + cpx)) {
                 if (cycle == cycles) {
-                    system("powershell (Add-Type '[DllImport(\\\"user32.dll\\\")]^public static extern int PostMessage(int hWnd, int hMsg, int wParam, int lParam);' -Name a -Pas)::PostMessage(-1,0x0112,0xF170,2)");
+                    system( cmd );
                     cout << "Hidden the screens!" << endl;
                 }
                 cycle++;
